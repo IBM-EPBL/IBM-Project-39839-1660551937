@@ -25,8 +25,8 @@ We suggested a clever, adaptable, and successful method that is based on applyin
 
 The e-banking phishing website may be identified using various key features, including the URL and domain identification, security and encryption requirements, and the overall phishing detection rate. Once a user completes an online transaction and pays through an e-banking website, our system uses a data mining algorithm to determine if the e-banking website is legitimate or a phishing website.
 
-Common threats of web phishing:
 
+Common threats of web phishing:
 Web phishing aims to steal private information, such as usernames, passwords, and credit card details, by way of impersonating a legitimate entity.
 
 It will lead to information disclosure and property damage.
