@@ -34,3 +34,7 @@ It will lead to information disclosure and property damage.
 Large organizations may get trapped in different kinds of scams.
 This Guided Project mainly focuses on applying a machine-learning algorithm to detect Phishing websites.
 In order to detect and predict e-banking phishing websites, we proposed an intelligent, flexible and effective system that is based on using classification algorithms. We implemented classification algorithms and techniques to extract the phishing datasets criteria to classify their legitimacy. The e-banking phishing website can be detected based on some important characteristics like URL and domain identity, and security and encryption criteria in the final phishing detection rate. Once a user makes a transaction online when he makes payment through an e-banking website our system will use a data mining algorithm to detect whether the e-banking website is a phishing website or not.
+
+
+Technical Architecture : 
+![191585875-9db35871-72b5-476e-ac9b-3795cf3778de](https://user-images.githubusercontent.com/116282481/202835050-57fc2b2e-769b-4e4a-9c71-9c67f9ab2aba.png)
