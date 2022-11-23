@@ -1,0 +1,86 @@
+Basic Python
+1. Split this string
+s = "Hi there Sam!"
+s_list = s.split(" ")
+for i in s_list:
+  print(i)
+Hi
+there
+Sam!
+2. Use .format() to print the following string.
+Output should be: The diameter of Earth is 12742 kilometers.
+planet = "Earth"
+diameter = 12742
+result = "The diameter of {Name} is {Value} kilometers". format(Name = planet, Value = diameter)
+print(result)
+The diameter of Earth is 12742 kilometers
+3. In this nest dictionary grab the word "hello"
+d = {'k1':[1,2,3,{'tricky':['oh','man','inception',{'target':[1,2,3,'hello']}]}]}
+print(d['k1'][3]['tricky'][3]['target'][3])
+hello
+Numpy
+import numpy as np
+4.1 Create an array of 10 zeros?
+4.2 Create an array of 10 fives?
+arr1 = np.zeros(10)
+print(arr1)
+[0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+arr2 = np.ones(10)*5
+print(arr2)
+[5. 5. 5. 5. 5. 5. 5. 5. 5. 5.]
+5. Create an array of all the even integers from 20 to 35
+arr3 = np.arange(20,35,2)
+print(arr3)
+[20 22 24 26 28 30 32 34]
+6. Create a 3x3 matrix with values ranging from 0 to 8
+arr4 = np.arange(0,9).reshape(3,3)
+print(arr4)
+[[0 1 2]
+ [3 4 5]
+ [6 7 8]]
+7. Concatinate a and b
+a = np.array([1, 2, 3]), b = np.array([4, 5, 6])
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+arr5 = np.concatenate((a, b))
+print(arr5)
+[1 2 3 4 5 6]
+Pandas
+8. Create a dataframe with 3 rows and 2 columns
+import pandas as pd
+res = pd.DataFrame(np.random.randint(0,100,size=(3, 2)), columns=list('AB'))
+print(res)
+    A   B
+0  14   5
+1  59  53
+2  12  56
+9. Generate the series of dates from 1st Jan, 2023 to 10th Feb, 2023
+import pandas as pd 
+date = pd.date_range(start ='1-1-2023', end ='5-10-2023', freq ='10D')
+  
+for val in date:
+    print(val)
+2023-01-01 00:00:00
+2023-01-11 00:00:00
+2023-01-21 00:00:00
+2023-01-31 00:00:00
+2023-02-10 00:00:00
+2023-02-20 00:00:00
+2023-03-02 00:00:00
+2023-03-12 00:00:00
+2023-03-22 00:00:00
+2023-04-01 00:00:00
+2023-04-11 00:00:00
+2023-04-21 00:00:00
+2023-05-01 00:00:00
+10. Create 2D list to DataFrame
+lists = [[1, 'aaa', 22], [2, 'bbb', 25], [3, 'ccc', 24]]
+
+lst = [[1, 'aaa', 22], [2, 'bbb', 25], [3, 'ccc', 24]]
+import pandas as pd
+df = pd.DataFrame(lst, columns =['SNo.', 'Name', 'Age']) 
+print(df)
+   SNo. Name  Age
+0     1  aaa   22
+1     2  bbb   25
+2     3  ccc   24
