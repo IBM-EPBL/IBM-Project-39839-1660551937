@@ -1,0 +1,326 @@
+Abalone Age Prediction
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+dt = pd.read_csv('abalone.csv')
+dt.head()
+Sex	Length	Diameter	Height	Whole weight	Shucked weight	Viscera weight	Shell weight	Rings
+0	M	0.455	0.365	0.095	0.5140	0.2245	0.1010	0.150	15
+1	M	0.350	0.265	0.090	0.2255	0.0995	0.0485	0.070	7
+2	F	0.530	0.420	0.135	0.6770	0.2565	0.1415	0.210	9
+3	M	0.440	0.365	0.125	0.5160	0.2155	0.1140	0.155	10
+4	I	0.330	0.255	0.080	0.2050	0.0895	0.0395	0.055	7
+dt.describe()
+Length	Diameter	Height	Whole weight	Shucked weight	Viscera weight	Shell weight	Rings
+count	4177.000000	4177.000000	4177.000000	4177.000000	4177.000000	4177.000000	4177.000000	4177.000000
+mean	0.523992	0.407881	0.139516	0.828742	0.359367	0.180594	0.238831	9.933684
+std	0.120093	0.099240	0.041827	0.490389	0.221963	0.109614	0.139203	3.224169
+min	0.075000	0.055000	0.000000	0.002000	0.001000	0.000500	0.001500	1.000000
+25%	0.450000	0.350000	0.115000	0.441500	0.186000	0.093500	0.130000	8.000000
+50%	0.545000	0.425000	0.140000	0.799500	0.336000	0.171000	0.234000	9.000000
+75%	0.615000	0.480000	0.165000	1.153000	0.502000	0.253000	0.329000	11.000000
+max	0.815000	0.650000	1.130000	2.825500	1.488000	0.760000	1.005000	29.000000
+1. Univariate Analysis
+dt['Rings'].value_counts()
+9     689
+10    634
+8     568
+11    487
+7     391
+12    267
+6     259
+13    203
+14    126
+5     115
+15    103
+16     67
+17     58
+4      57
+18     42
+19     32
+20     26
+3      15
+21     14
+23      9
+22      6
+27      2
+24      2
+1       1
+26      1
+29      1
+2       1
+25      1
+Name: Rings, dtype: int64
+dt.boxplot(column=['Rings'], grid= False, color='red')
+
+dt.hist(column='Rings', grid= False, edgecolor='black')
+array([[]],
+      dtype=object)
+
+sns.kdeplot(dt['Rings'])
+
+2. Bivariate Analysis
+plt.scatter(dt.Rings, dt.Diameter)
+plt.title('Rings vs Diameter')
+plt.xlabel('Rings')
+plt.ylabel('Diameter')
+Text(0, 0.5, 'Diameter')
+
+dt.corr()
+Length	Diameter	Height	Whole weight	Shucked weight	Viscera weight	Shell weight	Rings
+Length	1.000000	0.986812	0.827554	0.925261	0.897914	0.903018	0.897706	0.556720
+Diameter	0.986812	1.000000	0.833684	0.925452	0.893162	0.899724	0.905330	0.574660
+Height	0.827554	0.833684	1.000000	0.819221	0.774972	0.798319	0.817338	0.557467
+Whole weight	0.925261	0.925452	0.819221	1.000000	0.969405	0.966375	0.955355	0.540390
+Shucked weight	0.897914	0.893162	0.774972	0.969405	1.000000	0.931961	0.882617	0.420884
+Viscera weight	0.903018	0.899724	0.798319	0.966375	0.931961	1.000000	0.907656	0.503819
+Shell weight	0.897706	0.905330	0.817338	0.955355	0.882617	0.907656	1.000000	0.627574
+Rings	0.556720	0.574660	0.557467	0.540390	0.420884	0.503819	0.627574	1.000000
+sns.barplot(dt['Sex'], dt['Rings'])
+/usr/local/lib/python3.7/dist-packages/seaborn/_decorators.py:43: FutureWarning: Pass the following variables as keyword args: x, y. From version 0.12, the only valid positional argument will be `data`, and passing other arguments without an explicit keyword will result in an error or misinterpretation.
+  FutureWarning
+
+sns.boxplot(dt['Sex'], dt['Rings'])
+/usr/local/lib/python3.7/dist-packages/seaborn/_decorators.py:43: FutureWarning: Pass the following variables as keyword args: x, y. From version 0.12, the only valid positional argument will be `data`, and passing other arguments without an explicit keyword will result in an error or misinterpretation.
+  FutureWarning
+
+sns.violinplot(dt['Sex'], dt['Rings'])
+/usr/local/lib/python3.7/dist-packages/seaborn/_decorators.py:43: FutureWarning: Pass the following variables as keyword args: x, y. From version 0.12, the only valid positional argument will be `data`, and passing other arguments without an explicit keyword will result in an error or misinterpretation.
+  FutureWarning
+
+3. Multi-variate Analysis
+sns.pairplot(
+    data= dt, 
+    aspect=.85);
+
+sns.set(font_scale=1.15)
+plt.figure(figsize=(30,4))
+sns.heatmap(
+    dt.corr(),        
+    cmap='RdBu_r', 
+    annot=True, 
+    vmin=-1, vmax=1);
+
+sns.set(font_scale=1.3)
+sns.scatterplot(
+   x='Rings',y='Diameter',data=dt)
+plt.xlabel(
+    'Rings')
+plt.ylabel(
+    'Diameter')
+Text(0, 0.5, 'Diameter')
+
+4. Perform descriptive statistics on the dataset
+dt['Rings'].mean()
+9.933684462532918
+dt['Rings'].median()
+9.0
+dt['Rings'].std()
+3.2241690320681284
+dt['Rings'].value_counts()
+9     689
+10    634
+8     568
+11    487
+7     391
+12    267
+6     259
+13    203
+14    126
+5     115
+15    103
+16     67
+17     58
+4      57
+18     42
+19     32
+20     26
+3      15
+21     14
+23      9
+22      6
+27      2
+24      2
+1       1
+26      1
+29      1
+2       1
+25      1
+Name: Rings, dtype: int64
+5. Check for Missing values and deal with them
+dt.isnull().sum().sum()
+0
+6. Find the outliers and replace them outliers
+sns.boxplot(dt['Rings'],data=dt)
+/usr/local/lib/python3.7/dist-packages/seaborn/_decorators.py:43: FutureWarning: Pass the following variable as a keyword arg: x. From version 0.12, the only valid positional argument will be `data`, and passing other arguments without an explicit keyword will result in an error or misinterpretation.
+  FutureWarning
+
+dt['Rings'].skew()
+1.114101898355677
+Q1= dt['Rings'].quantile(0.25)
+Q3= dt['Rings'].quantile(0.75)
+IQR= Q3-Q1
+print(IQR)
+3.0
+Q1=dt['Rings'].quantile(0.25)
+Q3=dt['Rings'].quantile(0.75)
+IQR=Q3-Q1
+
+whisker_width = 1.5
+lower_whisker = Q1 -(whisker_width*IQR)
+upper_whisker = Q3 + (whisker_width*IQR)
+dt['Rings']= np.where((dt['Rings'])>upper_whisker, upper_whisker, np.where(dt['Rings']<lower_whisker, lower_whisker, dt['Rings']))
+sns.boxplot(dt['Rings'], data=dt)
+/usr/local/lib/python3.7/dist-packages/seaborn/_decorators.py:43: FutureWarning: Pass the following variable as a keyword arg: x. From version 0.12, the only valid positional argument will be `data`, and passing other arguments without an explicit keyword will result in an error or misinterpretation.
+  FutureWarning
+
+7. Check for Categorical columns and perform encoding
+data_numeric = dt[['Length','Diameter',	'Height',	'Whole weight',	'Shucked weight',	'Viscera weight',	'Shell weight', 'Rings']]
+data_categorical = dt[['Sex']]
+data_numeric.head()
+Length	Diameter	Height	Whole weight	Shucked weight	Viscera weight	Shell weight	Rings
+0	0.455	0.365	0.095	0.5140	0.2245	0.1010	0.150	15.0
+1	0.350	0.265	0.090	0.2255	0.0995	0.0485	0.070	7.0
+2	0.530	0.420	0.135	0.6770	0.2565	0.1415	0.210	9.0
+3	0.440	0.365	0.125	0.5160	0.2155	0.1140	0.155	10.0
+4	0.330	0.255	0.080	0.2050	0.0895	0.0395	0.055	7.0
+data_categorical.head()
+Sex
+0	M
+1	M
+2	F
+3	M
+4	I
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import LabelEncoder
+
+Gender_encoder = OneHotEncoder()
+Gender_reshaped = np.array(data_categorical['Sex']).reshape(-1, 1)
+Gender_values = Gender_encoder.fit_transform(Gender_reshaped)
+
+print(data_categorical['Sex'][:5])
+print()
+print(Gender_values.toarray()[:5])
+print()
+print(Gender_encoder.inverse_transform(Gender_values)[:5])
+0    M
+1    M
+2    F
+3    M
+4    I
+Name: Sex, dtype: object
+
+[[0. 0. 1.]
+ [0. 0. 1.]
+ [1. 0. 0.]
+ [0. 0. 1.]
+ [0. 1. 0.]]
+
+[['M']
+ ['M']
+ ['F']
+ ['M']
+ ['I']]
+Gender_encoder = LabelEncoder()
+Gender_values = Gender_encoder.fit_transform(data_categorical['Sex'])
+
+print("Before Encoding:", list(data_categorical['Sex'][:5]))
+print("After Encoding:", Gender_values[:5])
+print("The inverse from the encoding result:", Gender_encoder.inverse_transform(Gender_values[:5]))
+Before Encoding: ['M', 'M', 'F', 'M', 'I']
+After Encoding: [2 2 0 2 1]
+The inverse from the encoding result: ['M' 'M' 'F' 'M' 'I']
+8. Split the data into dependent and independent variables
+X = dt.iloc[:, :-1].values
+print(X)
+[['M' 0.455 0.365 ... 0.2245 0.101 0.15]
+ ['M' 0.35 0.265 ... 0.0995 0.0485 0.07]
+ ['F' 0.53 0.42 ... 0.2565 0.1415 0.21]
+ ...
+ ['M' 0.6 0.475 ... 0.5255 0.2875 0.308]
+ ['F' 0.625 0.485 ... 0.531 0.261 0.296]
+ ['M' 0.71 0.555 ... 0.9455 0.3765 0.495]]
+Y = dt.iloc[:, -1].values
+print(Y)
+[15.  7.  9. ...  9. 10. 12.]
+9. Scale the independent variables
+from sklearn.preprocessing import MinMaxScaler
+from sklearn import linear_model
+from sklearn.preprocessing import StandardScaler
+scale = StandardScaler()
+
+X = dt[['Length','Diameter',	'Height',	'Whole weight',	'Shucked weight',	'Viscera weight',	'Shell weight','Rings']]
+
+scaledX = scale.fit_transform(X)
+
+print(scaledX)
+[[-0.57455813 -0.43214879 -1.06442415 ... -0.72621157 -0.63821689
+   1.89365646]
+ [-1.44898585 -1.439929   -1.18397831 ... -1.20522124 -1.21298732
+  -1.00079163]
+ [ 0.05003309  0.12213032 -0.10799087 ... -0.35668983 -0.20713907
+  -0.27717961]
+ ...
+ [ 0.6329849   0.67640943  1.56576738 ...  0.97541324  0.49695471
+  -0.27717961]
+ [ 0.84118198  0.77718745  0.25067161 ...  0.73362741  0.41073914
+   0.0846264 ]
+ [ 1.54905203  1.48263359  1.32665906 ...  1.78744868  1.84048058
+   0.80823842]]
+10. Split the data into training and testing
+to_numeric = {'M': 1.0, 'F': 2.0,
+'I': 0.0}
+
+# adding the new numeric values from the to_numeric variable to both datasets
+df = dt.applymap(lambda lable: to_numeric.get(lable) if lable in to_numeric else lable)
+
+# convertind the Dependents column
+Gender = pd.to_numeric(df.Sex)
+
+# dropping the previous Dependents column
+df.drop(['Sex'], axis = 1, inplace = True)
+
+# concatination of the new Dependents column with both datasets
+df = pd.concat([df, Gender], axis = 1)
+
+# checking the our manipulated dataset for validation
+print(f"training set (row, col): {df.shape}\n")
+print(df.info())
+training set (row, col): (4177, 9)
+
+
+RangeIndex: 4177 entries, 0 to 4176
+Data columns (total 9 columns):
+ #   Column          Non-Null Count  Dtype  
+---  ------          --------------  -----  
+ 0   Length          4177 non-null   float64
+ 1   Diameter        4177 non-null   float64
+ 2   Height          4177 non-null   float64
+ 3   Whole weight    4177 non-null   float64
+ 4   Shucked weight  4177 non-null   float64
+ 5   Viscera weight  4177 non-null   float64
+ 6   Shell weight    4177 non-null   float64
+ 7   Rings           4177 non-null   float64
+ 8   Sex             4177 non-null   float64
+dtypes: float64(9)
+memory usage: 293.8 KB
+None
+11. Build the Model
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+y = df['Rings']
+X = df.drop('Rings', axis = 1)
+ 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 0)
+
+LR = LinearRegression()
+12. Train the Model
+LR.fit(X_train, y_train)
+LinearRegression()
+13. Test the model
+y_predict = LR.predict(X_test)
+14. Measure the performance using Metrics.
+LR.score(X_test, y_test)
+0.5611220991998995
